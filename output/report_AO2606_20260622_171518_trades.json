@@ -1,0 +1,132 @@
+[
+  {
+    "entry_time": "2026-04-16 23:45:00",
+    "direction": "LONG",
+    "entry_price": 2675.0,
+    "size": 18,
+    "exit_time": "2026-04-27 10:45:00",
+    "exit_price": 2753.22,
+    "pnl": 13981.892039999964,
+    "exit_reason": "Take Profit"
+  },
+  {
+    "entry_time": "2026-04-27 10:45:00",
+    "direction": "LONG",
+    "entry_price": 2767.0,
+    "size": 18,
+    "exit_time": "2026-04-28 09:15:00",
+    "exit_price": 2709.68,
+    "pnl": -10416.180240000029,
+    "exit_reason": "Stop Loss"
+  },
+  {
+    "entry_time": "2026-04-28 09:15:00",
+    "direction": "LONG",
+    "entry_price": 2718.0,
+    "size": 18,
+    "exit_time": "2026-04-29 09:15:00",
+    "exit_price": 2797.51,
+    "pnl": 14212.52082000004,
+    "exit_reason": "Take Profit"
+  },
+  {
+    "entry_time": "2026-04-29 09:15:00",
+    "direction": "LONG",
+    "entry_price": 2858.0,
+    "size": 17,
+    "exit_time": "2026-05-11 09:15:00",
+    "exit_price": 2798.86,
+    "pnl": -10149.966619999977,
+    "exit_reason": "Stop Loss"
+  },
+  {
+    "entry_time": "2026-05-11 09:15:00",
+    "direction": "LONG",
+    "entry_price": 2820.0,
+    "size": 17,
+    "exit_time": "2026-05-15 14:00:00",
+    "exit_price": 2761.62,
+    "pnl": -10019.487540000018,
+    "exit_reason": "Stop Loss"
+  },
+  {
+    "entry_time": "2026-05-15 14:00:00",
+    "direction": "LONG",
+    "entry_price": 2755.0,
+    "size": 18,
+    "exit_time": "2026-05-22 10:00:00",
+    "exit_price": 2697.92,
+    "pnl": -10372.552559999987,
+    "exit_reason": "Stop Loss"
+  },
+  {
+    "entry_time": "2026-05-22 10:00:00",
+    "direction": "LONG",
+    "entry_price": 2695.0,
+    "size": 18,
+    "exit_time": "2026-05-25 23:00:00",
+    "exit_price": 2773.82,
+    "pnl": 14089.16124000003,
+    "exit_reason": "Take Profit"
+  },
+  {
+    "entry_time": "2026-05-25 23:00:00",
+    "direction": "LONG",
+    "entry_price": 2822.0,
+    "size": 17,
+    "exit_time": "2026-05-29 10:45:00",
+    "exit_price": 2904.63,
+    "pnl": 13949.74729000002,
+    "exit_reason": "Take Profit"
+  },
+  {
+    "entry_time": "2026-05-29 10:45:00",
+    "direction": "LONG",
+    "entry_price": 2900.0,
+    "size": 17,
+    "exit_time": "2026-06-02 10:15:00",
+    "exit_price": 2840.02,
+    "pnl": -10294.180340000003,
+    "exit_reason": "Stop Loss"
+  },
+  {
+    "entry_time": "2026-06-02 10:15:00",
+    "direction": "LONG",
+    "entry_price": 2829.0,
+    "size": 17,
+    "exit_time": "2026-06-04 10:45:00",
+    "exit_price": 2770.44,
+    "pnl": -10050.39047999999,
+    "exit_reason": "Stop Loss"
+  },
+  {
+    "entry_time": "2026-06-04 10:45:00",
+    "direction": "LONG",
+    "entry_price": 2766.0,
+    "size": 17,
+    "exit_time": "2026-06-09 14:30:00",
+    "exit_price": 2846.95,
+    "pnl": 13666.07984999997,
+    "exit_reason": "Take Profit"
+  },
+  {
+    "entry_time": "2026-06-09 14:30:00",
+    "direction": "LONG",
+    "entry_price": 2846.0,
+    "size": 17,
+    "exit_time": "2026-06-11 21:30:00",
+    "exit_price": 2929.35,
+    "pnl": 14071.319049999986,
+    "exit_reason": "Take Profit"
+  },
+  {
+    "entry_time": "2026-06-11 21:30:00",
+    "direction": "LONG",
+    "entry_price": 2923.0,
+    "size": 17,
+    "exit_time": "2026-06-18 15:00:00",
+    "exit_price": 2898.0,
+    "pnl": -4348.957,
+    "exit_reason": "Force Close (End of Backtest)"
+  }
+]

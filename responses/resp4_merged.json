@@ -1,0 +1,142 @@
+{
+  "single_periods": {
+    "weekly": {
+      "period": "周线",
+      "price_latest": 2898,
+      "bollinger": {
+        "upper": 3048.43,
+        "mid": 2867.73,
+        "lower": 2687.03,
+        "slope_upper": "走平",
+        "slope_mid": "走平",
+        "slope_lower": "走平",
+        "opening_state": "走平",
+        "price_zone": "中轨附近"
+      },
+      "macd": {
+        "diff": -7.24,
+        "dea": -18.33,
+        "histogram": 22.17,
+        "state": "金叉",
+        "zero_position": "零轴下方",
+        "momentum": "动能转多"
+      },
+      "trend": "大区间震荡，底部金叉",
+      "pattern": "疑似头肩底雏形",
+      "volume": "持平",
+      "key_levels": {
+        "resistance": [3048, 3188, 3377],
+        "support": [2867, 2687, 2467]
+      },
+      "key_observation": "MACD零下金叉，布林走平，关注中轨2867支撑"
+    },
+    "daily": {
+      "period": "日线",
+      "price_latest": 2898,
+      "bollinger": {
+        "upper": 2979.57,
+        "mid": 2826.77,
+        "lower": 2673.97,
+        "slope_upper": "向上",
+        "slope_mid": "向上",
+        "slope_lower": "向上",
+        "opening_state": "张口发散",
+        "price_zone": "中轨与上轨之间"
+      },
+      "macd": {
+        "diff": 23.30,
+        "dea": 21.00,
+        "histogram": 4.59,
+        "state": "金叉",
+        "zero_position": "零轴上方",
+        "momentum": "动能减弱"
+      },
+      "trend": "震荡偏多，接近上轨",
+      "pattern": "疑似W底",
+      "volume": "持平",
+      "key_levels": {
+        "resistance": [2980, 3048, 3188],
+        "support": [2826, 2685, 2673]
+      },
+      "key_observation": "MACD零上金叉但红柱缩短，上轨2980压力明显"
+    },
+    "hourly": {
+      "period": "小时线",
+      "price_latest": 2898,
+      "bollinger": {
+        "upper": 2931.33,
+        "mid": 2903.73,
+        "lower": 2876.13,
+        "slope_upper": "向下",
+        "slope_mid": "向下",
+        "slope_lower": "向下",
+        "opening_state": "张口发散",
+        "price_zone": "中轨与下轨之间"
+      },
+      "macd": {
+        "diff": -1.27,
+        "dea": -0.10,
+        "histogram": -2.33,
+        "state": "死叉",
+        "zero_position": "零轴下方",
+        "momentum": "动能转空"
+      },
+      "trend": "短期回调，偏空",
+      "pattern": "无",
+      "volume": "持平",
+      "key_levels": {
+        "resistance": [2903, 2931, 2980],
+        "support": [2876, 2826, 2742]
+      },
+      "key_observation": "小时MACD死叉，价格跌破中轨，下方2876为关键"
+    }
+  },
+  "resonance_analysis": {
+    "three_periods_aligned": "否",
+    "alignment_direction": "不共振",
+    "description": "周线偏多（金叉），日线偏多（金叉但减弱），小时偏空（死叉），方向矛盾",
+    "contradiction": "小时级别空头与日周多头矛盾，短期回调与中期反弹节奏冲突",
+    "dominant_period_state": "周线给出震荡筑底偏多基调"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "小时回调企稳",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "价格在2876-2898区间获支撑止跌",
+        "小时MACD绿柱缩短，DIFF走平",
+        "日线中轨2826持续上移提供支撑"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "日周共振延续",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "小时线重新站上2903中轨",
+        "日线MACD红柱再度放大",
+        "成交量同步放大配合突破2931"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "回调加深",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "小时线放量跌破2876下轨",
+        "日线MACD死叉形成",
+        "周线收盘跌破2867中轨"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [2931, 2980, 3048],
+    "support": [2898, 2876, 2826]
+  },
+  "confidence_score": 6,
+  "confidence_reason": "三周期方向不一致，小时与日周矛盾，但关键价位清晰，支撑阻力明确",
+  "core_observation": "小时MACD死叉与日周金叉矛盾，关注2876支撑",
+  "summary": "周线日线偏多但动能减弱，小时线回调，短期看2876支撑有效性，企稳则反弹，跌破则加深调整",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

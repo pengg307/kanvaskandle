@@ -1,0 +1,142 @@
+{
+  "single_periods": {
+    "weekly": {
+      "period": "周线",
+      "price_latest": 2898,
+      "bollinger": {
+        "upper": 3048.43,
+        "mid": 2867.73,
+        "lower": 2687.03,
+        "slope_upper": "向下",
+        "slope_mid": "走平",
+        "slope_lower": "向上",
+        "opening_state": "收口",
+        "price_zone": "中轨与上轨之间"
+      },
+      "macd": {
+        "diff": -7.24,
+        "dea": -18.33,
+        "histogram": 22.17,
+        "state": "金叉",
+        "zero_position": "零轴下方",
+        "momentum": "动能增强"
+      },
+      "trend": "底部反弹，长期下跌趋势暂缓",
+      "pattern": "近期低位震荡整理",
+      "volume": "放量",
+      "key_levels": {
+        "resistance": [3048, 3188, 3577],
+        "support": [2867, 2687, 2664]
+      },
+      "key_observation": "价格站上布林中轨，MACD底背离后金叉，中期转强信号初现。"
+    },
+    "daily": {
+      "period": "日线",
+      "price_latest": 2899,
+      "bollinger": {
+        "upper": 2979.57,
+        "mid": 2826.77,
+        "lower": 2673.97,
+        "slope_upper": "向上",
+        "slope_mid": "向上",
+        "slope_lower": "向上",
+        "opening_state": "张口发散",
+        "price_zone": "中轨与上轨之间"
+      },
+      "macd": {
+        "diff": 23.3,
+        "dea": 21.0,
+        "histogram": 4.59,
+        "state": "金叉",
+        "zero_position": "零轴上方",
+        "momentum": "动能增强"
+      },
+      "trend": "短期上升趋势确立，多头排列",
+      "pattern": "突破前期平台后的上升通道",
+      "volume": "持平",
+      "key_levels": {
+        "resistance": [2980, 3000, 3188],
+        "support": [2826, 2742, 2685]
+      },
+      "key_observation": "日线MACD在零轴上方运行，布林带开口向上，处于强势区域。"
+    },
+    "hourly": {
+      "period": "小时线",
+      "price_latest": 2898,
+      "bollinger": {
+        "upper": 2931.33,
+        "mid": 2903.73,
+        "lower": 2876.13,
+        "slope_upper": "走平",
+        "slope_mid": "走平",
+        "slope_lower": "走平",
+        "opening_state": "收口",
+        "price_zone": "中轨附近"
+      },
+      "macd": {
+        "diff": -1.27,
+        "dea": -0.1,
+        "histogram": -2.33,
+        "state": "死叉",
+        "zero_position": "零轴附近",
+        "momentum": "动能减弱"
+      },
+      "trend": "高位横盘震荡，短线回调",
+      "pattern": "矩形整理形态",
+      "volume": "缩量",
+      "key_levels": {
+        "resistance": [2931, 2978, 3000],
+        "support": [2876, 2800, 2742]
+      },
+      "key_observation": "小时线受阻于布林中轨，MACD死叉调整，等待方向选择。"
+    }
+  },
+  "resonance_analysis": {
+    "three_periods_aligned": "否",
+    "alignment_direction": "不共振",
+    "description": "周线、日线趋势向上且MACD金叉，小时线处于回调震荡阶段，大周期多小周期空。",
+    "contradiction": "小时线MACD死叉与日线强势上涨存在短线矛盾。",
+    "dominant_period_state": "日线主导节奏，维持偏多基调"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "回踩支撑后延续涨势",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "条件1：小时线回踩2876-2880区间企稳",
+        "条件2：小时线MACD重新金叉或绿柱缩短",
+        "条件3：日线收盘价维持在2826中轨上方"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "高位宽幅震荡",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "条件1：价格在2870-2930区间反复拉锯",
+        "条件2：成交量持续萎缩，缺乏突破动力",
+        "条件3：日线布林带上轨2980构成强压"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "跌破支撑转为弱势",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "条件1：有效跌破小时线下轨2876",
+        "条件2：日线回落击穿中轨2826",
+        "条件3：持仓量大幅减少显示多头离场"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [2931, 2980, 3048],
+    "support": [2876, 2826, 2742]
+  },
+  "confidence_score": 7.5,
+  "confidence_reason": "日线与周线趋势高度一致，仅小时线短线调整，整体多头结构完整。",
+  "core_observation": "大周期多头趋势明确，小时线回调是潜在的顺势入场机会。",
+  "summary": "氧化铝2609合约周线与日线共振看多，小时线短线回调修正。建议关注2876一线支撑，若企稳可视为顺势做多良机，目标看至日线布林上轨2980附近。",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

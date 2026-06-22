@@ -1,0 +1,50 @@
+{
+  "resonance_analysis": {
+    "three_periods_aligned": "是",
+    "alignment_direction": "空头共振",
+    "description": "三周期MACD同步死叉，价格均处下行通道，方向一致",
+    "contradiction": "周线零轴上方维持多头结构，日线小时线已入空头区域",
+    "dominant_period_state": "高位回调，多头结构受考验"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "回调延续",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "小时线维持下轨下方运行",
+        "日线跌破157574下轨支撑",
+        "周线向161156中轨下方运行"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "超跌反弹",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "小时线MACD出现底背离信号",
+        "价格收复163091小时线下轨",
+        "日线在157574附近企稳"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "破位深跌",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "日线放量跌破157574下轨",
+        "周线DIFF下穿零轴",
+        "周线跌破161156中轨"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [161156, 163091, 171430],
+    "support": [157574, 140000, 117976]
+  },
+  "confidence_score": 7,
+  "confidence_reason": "三周期方向一致，但周线零轴上方存分歧，关键位清晰",
+  "core_observation": "三周期MACD同步死叉，小时线跌破下轨超卖",
+  "summary": "三周期空头共振，小时线超跌，关注日线157574支撑及周线中轨得失",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

@@ -1,0 +1,20 @@
+backtest:
+  initial_equity: 1000000.0
+  commission: 0.0001
+  slippage: 1.0
+
+risk_filter:
+  max_daily_trades: 3
+  min_confidence: 4
+  max_consecutive_losses: 2
+  max_total_risk_percent: 0.06
+
+position_sizer:
+  max_risk_percent: 0.02
+  min_size: 1
+  size_step: 1
+  point_values:
+    AO: 10.0
+    AG: 15.0
+    AU: 1000.0
+    default: 10.0

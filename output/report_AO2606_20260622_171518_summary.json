@@ -1,0 +1,20 @@
+{
+  "initial_equity": 1000000.0,
+  "final_equity": 1018319.00551,
+  "total_return": 0.018319005510000045,
+  "annual_return": 0.11278941018129252,
+  "max_drawdown": -0.035243668152385305,
+  "total_trades": 13,
+  "win_rate": 0.46153846153846156,
+  "avg_win": 13995.120048333336,
+  "avg_loss": -9378.816397142857,
+  "profit_factor": 1.4922053546753278,
+  "backtest_meta": {
+    "analysis_symbol": "",
+    "backtest_symbol": "AO2606",
+    "backtest_type": "Unknown (Symbol Missing)",
+    "is_vertical": false,
+    "data_file": "data\\AO2606_15min.csv",
+    "fusion_file": "output/fusion_result.json"
+  }
+}

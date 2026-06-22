@@ -1,0 +1,50 @@
+{
+  "resonance_analysis": {
+    "three_periods_aligned": "否",
+    "alignment_direction": "不共振",
+    "description": "周线水下金叉筑底，日线零上金叉遇阻，小时线零轴死叉转弱",
+    "contradiction": "周线与日线偏多，小时线转空，三周期方向不一致",
+    "dominant_period_state": "低位震荡筑底未确认"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "回调后继续筑底",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "小时线跌破2876后企稳反弹",
+        "日线回踩2822中轨获支撑",
+        "周线2664-2685区域守住不破位"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "向上突破走强",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "小时线收复2903并MACD重新金叉",
+        "日线放量突破2973上轨",
+        "周线站稳2861中轨且成交量放大"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "破位下行风险",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "小时线跌破2876下轨支撑",
+        "日线跌破2672下轨",
+        "周线跌破2675下轨，三重底失败"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [2948, 2973, 3048],
+    "support": [2876, 2822, 2675]
+  },
+  "confidence_score": 5,
+  "confidence_reason": "三周期信号不一致，方向矛盾，但关键价位较清晰",
+  "core_observation": "三周期布林带均收口，变盘窗口正在打开",
+  "summary": "大周期筑底未确认，中周期反弹遇阻，短周期转弱，等待周期共振信号",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

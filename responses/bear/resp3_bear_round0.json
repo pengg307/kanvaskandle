@@ -1,0 +1,50 @@
+{
+  "resonance_analysis": {
+    "three_periods_aligned": "是",
+    "alignment_direction": "空头共振",
+    "description": "周线MACD高位死叉向下，日线跌破中轨进入弱势区，小时线水下反抽受阻，三周期趋势一致偏空。",
+    "contradiction": "无",
+    "dominant_period_state": "长期上涨趋势终结，中期回调确立"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "反弹结束延续下跌",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "条件1：小时线价格无法有效突破布林中轨171430",
+        "条件2：MACD红柱缩短或DIFF再次拐头向下",
+        "条件3：日线收盘价继续维持在布林中轨下方"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "宽幅震荡寻找支撑",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "条件1：价格在157500-172000区间内反复拉锯",
+        "条件2：周线MACD绿柱开始缩短显示动能减弱",
+        "条件3：成交量显著萎缩，市场观望情绪浓厚"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "超跌反弹测试压力",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "条件1：小时线放量突破并站稳布林中轨上方",
+        "条件2：日线MACD绿柱明显缩短形成底背离雏形",
+        "条件3：价格重新挑战日线布林中轨175389"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [171430, 175389, 179768],
+    "support": [157180, 157574, 140000]
+  },
+  "confidence_score": 8.5,
+  "confidence_reason": "三周期技术指标高度一致指向空头，且大周期破位信号明确，关键价位清晰可见。",
+  "core_observation": "周线级别顶部结构确立，日线与小时线的反弹均为离场或试空机会。",
+  "summary": "碳酸锂2609合约目前处于明确的空头趋势中。周线与日线共振下行，小时线虽有微弱反弹但受制于中轨压力。建议以逢高做空思路为主，警惕跌破前低后的加速下行风险。",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

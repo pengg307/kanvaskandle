@@ -1,0 +1,50 @@
+{
+  "resonance_analysis": {
+    "three_periods_aligned": "否",
+    "alignment_direction": "不共振",
+    "description": "周线强势多头，日线顶背离转空，小时线空头，三周期严重背离",
+    "contradiction": "周线强势多头与日线顶背离、小时线空头形成矛盾",
+    "dominant_period_state": "强势多头但需警惕"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "日线级别回调",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "日线MACD死叉确认且DIFF下穿零轴",
+        "小时线反弹至BOLL中轨受阻",
+        "周线价格回落至BOLL上轨内"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "周线强势延续",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "日线顶背离被放量阳线化解",
+        "小时线MACD在零轴下方金叉",
+        "周线BOLL上轨形成动态支撑"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "多周期共振下跌",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "周线价格跌破BOLL中轨4268",
+        "日线DIFF下穿零轴确认空头",
+        "小时线持续下轨下方运行"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [4905, 4936, 5000],
+    "support": [4677, 4603, 4553]
+  },
+  "confidence_score": 6,
+  "confidence_reason": "周线多头明确但日线顶背离结构清晰，矛盾突出",
+  "core_observation": "周线多头趋势与日线顶背离形成关键矛盾",
+  "summary": "周线定调强势多头，但日线顶背离+小时线超跌提示短期回调风险，需等待日线级别方向明朗。",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

@@ -1,0 +1,142 @@
+{
+  "single_periods": {
+    "weekly": {
+      "period": "周线",
+      "price_latest": 2898,
+      "bollinger": {
+        "upper": 3048.43,
+        "mid": 2867.73,
+        "lower": 2687.03,
+        "slope_upper": "向下",
+        "slope_mid": "走平",
+        "slope_lower": "向下",
+        "opening_state": "收口",
+        "price_zone": "中轨与上轨之间"
+      },
+      "macd": {
+        "diff": -7.24,
+        "dea": -18.33,
+        "histogram": 22.17,
+        "state": "金叉",
+        "zero_position": "零轴下方",
+        "momentum": "动能转多"
+      },
+      "trend": "低位震荡筑底",
+      "pattern": "三重底(2664/2680/2685)",
+      "volume": "持平",
+      "key_levels": {
+        "resistance": [3048, 3188, 3577],
+        "support": [2868, 2687, 2664]
+      },
+      "key_observation": "MACD零下金叉，三重底形态初显"
+    },
+    "daily": {
+      "period": "日线",
+      "price_latest": 2899,
+      "bollinger": {
+        "upper": 2979.57,
+        "mid": 2826.77,
+        "lower": 2673.97,
+        "slope_upper": "走平",
+        "slope_mid": "走平",
+        "slope_lower": "走平",
+        "opening_state": "走平",
+        "price_zone": "中轨与上轨之间"
+      },
+      "macd": {
+        "diff": 23.30,
+        "dea": 21.00,
+        "histogram": 4.59,
+        "state": "金叉",
+        "zero_position": "零轴上方",
+        "momentum": "动能增强"
+      },
+      "trend": "震荡上行偏强",
+      "pattern": "双底(2680/2685)",
+      "volume": "持平",
+      "key_levels": {
+        "resistance": [2979, 3188, 3577],
+        "support": [2827, 2685, 2664]
+      },
+      "key_observation": "站上中轨，MACD零上金叉运行"
+    },
+    "hourly": {
+      "period": "小时线",
+      "price_latest": 2898,
+      "bollinger": {
+        "upper": 2931.33,
+        "mid": 2903.73,
+        "lower": 2876.13,
+        "slope_upper": "走平",
+        "slope_mid": "走平",
+        "slope_lower": "走平",
+        "opening_state": "收口",
+        "price_zone": "中轨与上轨之间"
+      },
+      "macd": {
+        "diff": -1.27,
+        "dea": -0.10,
+        "histogram": -2.33,
+        "state": "死叉",
+        "zero_position": "零轴附近",
+        "momentum": "动能转空"
+      },
+      "trend": "高位震荡回调",
+      "pattern": "双顶(2930/2978)",
+      "volume": "持平",
+      "key_levels": {
+        "resistance": [2931, 2978, 3000],
+        "support": [2876, 2742, 2685]
+      },
+      "key_observation": "小时线MACD死叉，短期承压"
+    }
+  },
+  "resonance_analysis": {
+    "three_periods_aligned": "否",
+    "alignment_direction": "不共振",
+    "description": "周线转多，日线多头，小时线空头，两多一空矛盾",
+    "contradiction": "小时线MACD死叉与周日线多头信号冲突",
+    "dominant_period_state": "周线筑底转多，中期偏多"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "日线主导上行",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "小时线MACD重新金叉",
+        "价格站稳2900并突破2931",
+        "成交量配合放大"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "小时回调再涨",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "小时线回踩2876支撑不破",
+        "日线MACD维持金叉",
+        "周线布林带中轨2868支撑有效"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "三周期同步回调",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "小时线跌破2876下轨",
+        "日线收盘价低于2826中轨",
+        "周线MACD金叉失败"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [2931, 2979, 3048],
+    "support": [2876, 2827, 2687]
+  },
+  "confidence_score": 6,
+  "confidence_reason": "周线日线偏多但小时线偏空，方向未完全共振",
+  "core_observation": "小时线回调不破坏周日线多头结构",
+  "summary": "中期偏多格局，短期小时线回调提供低吸机会，关注2876-2931区间突破方向。",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

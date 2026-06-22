@@ -1,0 +1,50 @@
+{
+  "resonance_analysis": {
+    "three_periods_aligned": "否",
+    "alignment_direction": "不共振",
+    "description": "周线多头，日线顶背离，小时线空头加速",
+    "contradiction": "周线多 vs 日/小时空",
+    "dominant_period_state": "强势多头基调"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "多头回调企稳",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "小时线MACD底背离",
+        "价格重回小时BOLL下轨上方",
+        "日线MACD缩量止跌"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "趋势反转下行",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "周线收盘跌破BOLL上轨",
+        "日线确认跌破中期均线",
+        "小时线反弹无力再创新低"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "高位震荡延续",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "价格在日线BOLL上下轨间运行",
+        "周线维持零轴上MACD",
+        "小时线波动率收敛"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [4905.46, 4936, 5000],
+    "support": [4553.87, 4300.77, 4268.69]
+  },
+  "confidence_score": 6,
+  "confidence_reason": "周线偏多但日小时空头压制",
+  "core_observation": "周线突破 vs 日线顶背离",
+  "summary": "多头主导但短期承压，需观察回调是否企稳。",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。"
+}

@@ -1,0 +1,5 @@
+rules: []
+# 示例条目（后续积累）：
+# - phrase: "小时线收盘站回{level}上方"
+#   code: "row['close'] > {level}"
+#   params: ["level"]

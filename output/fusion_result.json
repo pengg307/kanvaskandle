@@ -1,0 +1,65 @@
+{
+  "resonance_analysis": {
+    "three_periods_aligned": "否",
+    "alignment_direction": "不共振",
+    "description": "周线、日线趋势向上且MACD金叉，小时线处于回调震荡阶段，大周期多小周期空。",
+    "contradiction": "小时线MACD死叉与日线强势上涨存在短线矛盾。",
+    "dominant_period_state": "日线主导节奏，维持偏多基调"
+  },
+  "scenario_analysis": [
+    {
+      "probability_rank": 1,
+      "scenario": "回踩支撑后延续涨势",
+      "probability_judgment": "概率较大",
+      "trigger_conditions": [
+        "条件1：小时线回踩2876-2880区间企稳",
+        "条件2：小时线MACD重新金叉或绿柱缩短",
+        "条件3：日线收盘价维持在2826中轨上方"
+      ]
+    },
+    {
+      "probability_rank": 2,
+      "scenario": "高位宽幅震荡",
+      "probability_judgment": "需要条件配合",
+      "trigger_conditions": [
+        "条件1：价格在2870-2930区间反复拉锯",
+        "条件2：成交量持续萎缩，缺乏突破动力",
+        "条件3：日线布林带上轨2980构成强压"
+      ]
+    },
+    {
+      "probability_rank": 3,
+      "scenario": "跌破支撑转为弱势",
+      "probability_judgment": "风险存在",
+      "trigger_conditions": [
+        "条件1：有效跌破小时线下轨2876",
+        "条件2：日线回落击穿中轨2826",
+        "条件3：持仓量大幅减少显示多头离场"
+      ]
+    }
+  ],
+  "key_levels": {
+    "resistance": [
+      2931,
+      2980,
+      3048
+    ],
+    "support": [
+      2687,
+      2826,
+      2876
+    ]
+  },
+  "confidence_score": 6.75,
+  "confidence_reason": "日线与周线趋势高度一致，仅小时线短线调整，整体多头结构完整。",
+  "core_observation": "大周期多头趋势明确，小时线回调是潜在的顺势入场机会。",
+  "summary": "氧化铝2609合约周线与日线共振看多，小时线短线回调修正。建议关注2876一线支撑，若企稳可视为顺势做多良机，目标看至日线布林上轨2980附近。",
+  "risk_warning": "以上仅为技术面分析，不构成任何交易建议。期货风险极高，请理性对待。",
+  "vote_meta": {
+    "valid_outputs": 2,
+    "used_outputs": 2,
+    "scenario_vote_result": "平票，采纳最高置信度(7.5)的顺序",
+    "levels_method": "交集+中位数",
+    "confidence_method": "中位数"
+  }
+}
