@@ -1,5 +1,44 @@
-rules: []
-# 示例条目（后续积累）：
-# - phrase: "小时线收盘站回{level}上方"
-#   code: "row['close'] > {level}"
-#   params: ["level"]
+rules:
+- code: row['close'] < 156950.0
+  params: &id001
+  - level
+  phrase: close below 156950
+  source: Price breaks below a support level
+- code: macd_diff[-1] > macd_dea[-1] and macd_diff[-2] <= macd_dea[-2]
+  params: []
+  phrase: MACD golden cross
+  source: MACD golden cross
+- code: macd_dea[-1] >= macd_dea[-2]
+  params: []
+  phrase: DEA stops declining
+  source: DEA stops declining
+- code: row['close'] < 150860.0
+  params: *id001
+  phrase: Price breaks below 150860
+  source: Price breaks below a support level
+- code: macd_hist[-1] < macd_hist[-2]
+  params: []
+  phrase: MACD histogram deepens negative
+  source: MACD histogram shortening / turning negative
+- code: row['volume'] > prev_vol * 1.5
+  params: &id002 []
+  phrase: Volume surge
+  source: Volume expansion / surge
+- code: macd_diff[-1] < macd_dea[-1] and macd_diff[-2] >= macd_dea[-2]
+  params: []
+  phrase: MACD forms dead cross
+  source: MACD dead cross
+- code: macd_hist[-1] > macd_hist[-2]
+  params: []
+  phrase: MACD histogram continues to expand
+  source: MACD histogram continues to rise
+- code: row['close'] >= 150860.0 and row['close'] <= 163043.0
+  params:
+  - level1
+  - level2
+  phrase: oscillates between 150860 and 163043
+  source: Price oscillates between range without breakout
+- code: row['volume'] > prev_vol * 1.5
+  params: *id002
+  phrase: with volume
+  source: Volume expansion / surge

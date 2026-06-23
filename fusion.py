@@ -1,21 +1,84 @@
 #!/usr/bin/env python3
 """
-Multi-respondent voting & validation fusion system v1.0
-- Loads resonance analysis JSONs from responses/ folder
+Multi-respondent voting & validation fusion system v1.0 (multi-strategy compatible)
+- Supports both "resonance_analysis" and "regression_analysis"
+- Loads JSONs from responses/ subfolder specified via command line
+- Automatically decompresses v1.4 compact format (using local KEY_MAP)
 - Validates price level logic
 - Outputs timestamped archive + latest fusion_result.json
-- Extracts contract_info for symbol tracking
+- Extracts contract_info and source_symbols for tracking
+
+Usage:
+    python fusion.py AO2609/multi_period_v1.1
+    python fusion.py AO2609/bb_regression_v2.0
+    python fusion.py LC2609/multi_period_v1.1
+    python fusion.py               # loads responses/ (root)
 """
 
 import json
 import statistics
 import os
+import sys
 import glob
 from typing import List, Dict, Any, Tuple
 from datetime import datetime
+import yaml
+from pathlib import Path
 
-CURRENT_PRICE = 2898  # adjust to the latest price of the analyzed symbol
+# ---------- Configuration ----------
+def load_current_price(config_path="config.yaml"):
+    cfg = {}
+    if Path(config_path).exists():
+        with open(config_path, "r", encoding="utf-8") as f:
+            cfg = yaml.safe_load(f) or {}
+    return cfg.get("current_price", 2898)
 
+CURRENT_PRICE = load_current_price()
+
+# ---------- Decompression (v1.4 compact cv3) ----------
+KEY_MAP = {
+    "pd": "period", "pl": "price_latest", "bo": "bollinger",
+    "os": "opening_state", "pz": "price_zone", "mc": "macd",
+    "st": "state", "zp": "zero_position", "mm": "momentum",
+    "td": "trend", "pt": "pattern", "vl": "volume",
+    "kl": "key_levels", "rs": "resistance", "sp": "support",
+    "ko": "key_observation", "rb": "recent_bars",
+    "op": "open", "hi": "high", "lo": "low", "cl": "close", "vo": "volume",
+    "cx": "contract_info", "sy": "symbol", "pr": "periods",
+    "bc": "bar_counts", "at": "analysis_time", "ev": "extraction_version",
+    "si": "strategy_info", "sn": "strategy",
+    "ra": "resonance_analysis", "fa": "four_periods_aligned",
+    "ad": "alignment_direction", "ds": "description",
+    "cn": "contradiction", "dp": "dominant_period_state",
+    "sa": "scenario_analysis", "pk": "probability_rank",
+    "sc": "scenario", "pj": "probability_judgment",
+    "tc": "trigger_conditions", "cs": "confidence_score",
+    "cr": "confidence_reason", "co": "core_observation",
+    "sm": "summary", "rw": "risk_warning",
+    "ai": "analyst_id",
+}
+
+def decompress(data: dict) -> dict:
+    if not isinstance(data, dict):
+        return data
+    payload = data.get("d", data)
+    def decode(obj):
+        if isinstance(obj, dict):
+            new_obj = {}
+            for k, v in obj.items():
+                full_key = KEY_MAP.get(k, k)
+                new_obj[full_key] = decode(v)
+            return new_obj
+        elif isinstance(obj, list):
+            return [decode(item) for item in obj]
+        else:
+            return obj
+    return decode(payload)
+
+def is_compressed(data: dict) -> bool:
+    return isinstance(data, dict) and "d" in data and "k" not in data
+
+# ---------- File Loading ----------
 def load_responses_from_dir(directory: str = "responses", pattern: str = None) -> List[Dict[str, Any]]:
     if not os.path.isdir(directory):
         print(f"[Fusion] Directory {directory} not found")
@@ -31,12 +94,16 @@ def load_responses_from_dir(directory: str = "responses", pattern: str = None) -
         try:
             with open(fpath, "r", encoding="utf-8") as f:
                 data = json.load(f)
+                if is_compressed(data):
+                    print(f"[Fusion] Decompressing {os.path.basename(fpath)}...")
+                    data = decompress(data)
                 responses.append(data)
                 print(f"[Fusion] Loaded: {os.path.basename(fpath)}")
         except Exception as e:
             print(f"[Fusion] Failed to load {fpath}: {e}")
     return responses
 
+# ---------- Validation ----------
 def validate_levels(levels: Dict[str, List[float]], price: float, source: str = "") -> bool:
     supports = levels.get("support", [])
     resistances = levels.get("resistance", [])
@@ -62,13 +129,25 @@ def validate_response(response: Dict[str, Any], price: float, source: str = "") 
     try:
         levels = response.get("key_levels")
         if not levels:
+            print(f"[Validation] {source} missing key_levels")
             return False
-        if not all(k in response for k in ["resonance_analysis", "scenario_analysis", "confidence_score"]):
+        
+        has_analysis = ("resonance_analysis" in response) or ("regression_analysis" in response)
+        if not has_analysis:
+            print(f"[Validation] {source} missing analysis fields")
             return False
-    except Exception:
+        if "scenario_analysis" not in response:
+            print(f"[Validation] {source} missing scenario_analysis")
+            return False
+        if "confidence_score" not in response:
+            print(f"[Validation] {source} missing confidence_score")
+            return False
+    except Exception as e:
+        print(f"[Validation] {source} error: {e}")
         return False
     return validate_levels(levels, price, source)
 
+# ---------- Voting & Fusion ----------
 def extract_scenario_signatures(response: Dict[str, Any]) -> List[str]:
     scenarios = response.get("scenario_analysis", [])
     return [s.get("scenario", "").strip() for s in sorted(scenarios, key=lambda x: x.get("probability_rank", 99))]
@@ -109,9 +188,29 @@ def fuse_levels(valid_responses: List[Dict[str, Any]], price: float) -> Dict[str
     print(f"[Fusion] Final supports: {final_sup}, resistances: {final_res}")
     return {"resistance": final_res, "support": final_sup}
 
+def get_alignment(r):
+    if "resonance_analysis" in r:
+        return r["resonance_analysis"]["alignment_direction"]
+    elif "regression_analysis" in r:
+        return r["regression_analysis"].get("direction", "Neutral")
+    return "Unknown"
+
+# ---------- Main ----------
 def main():
     print("=== Fusion Start ===")
-    responses = load_responses_from_dir("responses")
+
+    if len(sys.argv) > 1:
+        sub_dir = sys.argv[1]
+        data_dir = os.path.join("responses", sub_dir)
+        if not os.path.isdir(data_dir):
+            print(f"[Fusion] Directory {data_dir} not found, fallback to responses/")
+            data_dir = "responses"
+    else:
+        data_dir = "responses"
+
+    print(f"[Fusion] Loading from: {data_dir}")
+    responses = load_responses_from_dir(data_dir)
+
     if not responses:
         print("[Fusion] No data.")
         return
@@ -123,7 +222,7 @@ def main():
         print("[Fusion] No valid responses.")
         return
 
-    align_votes = [r["resonance_analysis"]["alignment_direction"] for r in valid]
+    align_votes = [get_alignment(r) for r in valid]
     final_align = statistics.mode(align_votes)
 
     scenario_order, vote_desc = vote_scenarios(valid)
@@ -141,22 +240,26 @@ def main():
     best = max(valid, key=lambda x: x.get("confidence_score", 0))
 
     contract_info = {}
+    source_symbols = []
     for r in valid:
-        if "contract_info" in r:
-            contract_info = r["contract_info"]
-            break
-    if not contract_info and "contract_meta" in best:
-        contract_info = best["contract_meta"]
-    symbol = contract_info.get("symbol", "unknown")
+        ci = r.get("contract_info", {})
+        if not contract_info and ci:
+            contract_info = ci
+        sym = ci.get("symbol", ci.get("sy", "unknown"))
+        source_symbols.append(sym)
+
+    best_analysis = best.get("resonance_analysis") or best.get("regression_analysis", {})
 
     final_output = {
         "contract_info": contract_info,
         "resonance_analysis": {
-            "three_periods_aligned": best["resonance_analysis"].get("three_periods_aligned", "No"),
+            "three_periods_aligned": best_analysis.get("three_periods_aligned",
+                                      best_analysis.get("four_periods_aligned", "No")),
             "alignment_direction": final_align,
-            "description": best["resonance_analysis"].get("description", ""),
-            "contradiction": best["resonance_analysis"].get("contradiction", ""),
-            "dominant_period_state": best["resonance_analysis"].get("dominant_period_state", "")
+            "description": best_analysis.get("description", ""),
+            "contradiction": best_analysis.get("contradiction", ""),
+            "dominant_period_state": best_analysis.get("dominant_period_state",
+                                       best_analysis.get("overbought_oversold_detail", ""))
         },
         "scenario_analysis": final_scenarios,
         "key_levels": final_levels,
@@ -167,6 +270,7 @@ def main():
         "risk_warning": best.get("risk_warning", ""),
         "vote_meta": {
             "valid_outputs": len(valid),
+            "source_symbols": source_symbols,
             "scenario_vote": vote_desc,
             "levels_method": "Intersection+Median",
             "confidence_method": "Median"
@@ -176,6 +280,7 @@ def main():
     print(json.dumps(final_output, ensure_ascii=False, indent=2))
     os.makedirs("output", exist_ok=True)
     ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+    symbol = contract_info.get("symbol", "unknown")
     archive = f"output/fusion_{symbol}_{ts}.json"
     with open(archive, "w", encoding="utf-8") as f:
         json.dump(final_output, f, ensure_ascii=False, indent=2)

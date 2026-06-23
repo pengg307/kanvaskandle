@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Backtest main program v1.0
+Backtest main program v1.0 (cv3 compatible)
 - Parses symbol from CSV filename
-- Compares with fusion report contract_info for vertical verification
+- Compares with source_symbols in fusion report for vertical verification
 - Logs to file with symbol and timestamp
 - Saves reports with symbol and timestamp
 """
@@ -73,22 +73,35 @@ if __name__ == "__main__":
     fusion = load_fusion(fusion_file)
     logger.info(f"Fusion confidence: {fusion.get('confidence_score')}")
 
-    contract = fusion.get("contract_info", {})
-    analysis_symbol = contract.get("symbol", "")
-    logger.info(f"Analysis symbol: {analysis_symbol}")
+    # ---- Vertical backtest check ----
+    source_symbols = fusion.get("vote_meta", {}).get("source_symbols", [])
+    logger.info(f"Source symbols from fusion: {source_symbols}")
 
-    # Vertical backtest check
     is_vertical = False
-    if analysis_symbol and backtest_symbol:
-        if analysis_symbol[:2].upper() == backtest_symbol[:2].upper():
+    backtest_type = "Unknown (Symbol Missing)"
+    analysis_symbol = "unknown"
+
+    if source_symbols:
+        valid_symbols = [s for s in source_symbols if s and s != "unknown"]
+        if valid_symbols:
+            analysis_symbol = valid_symbols[0]
+
+        if all(s == backtest_symbol for s in source_symbols):
             is_vertical = True
             backtest_type = "Vertical (Same Symbol)"
+        elif any(s == backtest_symbol for s in source_symbols):
+            is_vertical = False
+            backtest_type = "Partial Match (Mixed Symbols)"
+            logger.warning(f"Source symbols {source_symbols} partially match backtest symbol {backtest_symbol}")
         else:
+            is_vertical = False
             backtest_type = "Cross-Symbol"
-            logger.warning(f"Analysis symbol {analysis_symbol} mismatches backtest symbol {backtest_symbol}, results for reference only")
+            logger.warning(f"Source symbols {source_symbols} do not match backtest symbol {backtest_symbol}")
     else:
-        backtest_type = "Unknown (Symbol Missing)"
+        logger.warning("No source_symbols found in fusion report")
+
     logger.info(f"Backtest Type: {backtest_type}")
+    logger.info(f"Analysis symbol: {analysis_symbol}")
 
     # Init modules
     signal_ext = SignalExtractor()
@@ -103,6 +116,7 @@ if __name__ == "__main__":
         "backtest_symbol": backtest_symbol,
         "backtest_type": backtest_type,
         "is_vertical": is_vertical,
+        "source_symbols": source_symbols,
         "data_file": data_file_arg,
         "fusion_file": fusion_file
     }
@@ -122,7 +136,10 @@ if __name__ == "__main__":
 
     logger.info("===== Trade Details =====")
     for i, t in enumerate(report.get("trades", []), 1):
-        logger.info(f"#{i} {t['direction']} | Entry:{t['entry_time']} @ {t['entry_price']:.2f} | Exit:{t['exit_time']} @ {t['exit_price']:.2f} | PnL:{t['pnl']:,.2f} | Reason:{t['exit_reason']}")
+        exit_time = t.get('exit_time') or 'N/A'
+        exit_price = t.get('exit_price')
+        exit_price_str = f"{exit_price:.2f}" if exit_price is not None else 'N/A'
+        logger.info(f"#{i} {t['direction']} | Entry:{t['entry_time']} @ {t['entry_price']:.2f} | Exit:{exit_time} @ {exit_price_str} | PnL:{t['pnl']:,.2f} | Reason:{t['exit_reason']}")
 
     # Save reports
     ts = datetime.now().strftime('%Y%m%d_%H%M%S')

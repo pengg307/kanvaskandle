@@ -2,6 +2,7 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict, Optional
 import yaml
+import math
 
 class BacktestEngine:
     def __init__(self, data: Dict[str, pd.DataFrame], signal_extractor, risk_filter, position_sizer, config_path: str = "config.yaml"):
@@ -120,8 +121,11 @@ class BacktestEngine:
                 elif bar["low"] <= pos["take_profit"][0]:
                     exit_price = pos["take_profit"][0] + self.slippage
                     self._close_position(pos, {"close": exit_price}, current_time, "Take Profit")
-
     def _execute_entry(self, signal: dict, bar: dict, current_time: str):
+        size = signal.get("size", 0)
+        if size <= 0 or math.isnan(size):
+            return  # 手数无效，跳过
+       
         entry_price = bar["close"] + (self.slippage if signal["direction"] == "LONG" else -self.slippage)
         pos = {
             "id": self.next_position_id,
@@ -146,8 +150,10 @@ class BacktestEngine:
             "pnl": 0.0,
             "exit_reason": "",
         })
-
     def _close_position(self, pos: dict, bar: dict, current_time: str, reason: str):
+        if math.isnan(bar["close"]) or math.isnan(pos["entry_price"]):
+            return  # 价格异常，跳过
+    
         if pos["direction"] == "LONG":
             pnl = (bar["close"] - pos["entry_price"]) * pos["size"] * self._get_point_value(pos["symbol"])
         else:

@@ -1,20 +1,47 @@
-backtest:
-  initial_equity: 1000000.0
-  commission: 0.0001
-  slippage: 1.0
+# ========== 全局配置 ==========
 
-risk_filter:
-  max_daily_trades: 3
-  min_confidence: 4
-  max_consecutive_losses: 2
-  max_total_risk_percent: 0.06
+# 当前分析品种的最新价（供 fusion.py 校验价位使用）
+current_price: 2917
 
+# ========== 头寸计算配置 ==========
 position_sizer:
-  max_risk_percent: 0.02
-  min_size: 1
-  size_step: 1
+  max_risk_percent: 0.015        # 单笔最大风险占权益比例（2%）
+  min_size: 1                   # 最小开仓手数（低于此值放弃信号）
+  size_step: 1                  # 手数步进（1为整数手）
+  
+  # 品种每点价值（元/点）
   point_values:
-    AO: 10.0
-    AG: 15.0
-    AU: 1000.0
-    default: 10.0
+    AO: 10.0                    # 氧化铝
+    AG: 15.0                    # 白银
+    AU: 1000.0                  # 黄金
+    LC: 1.0                     # 碳酸锂
+    default: 10.0               # 未知品种默认
+
+  # 品种止损百分比（基于入场价）
+  stop_percent:
+    AO: 0.02                    # 氧化铝 2%
+    AG: 0.02                    # 白银 2%
+    AU: 0.005                   # 黄金 0.5%
+    LC: 0.02                    # 碳酸锂 1%
+    default: 0.02               # 未知品种默认 2%
+
+  # 品种止盈百分比（基于入场价）
+  take_profit_percent:
+    AO: 0.03                    # 氧化铝 3%
+    AG: 0.03                    # 白银 3%
+    AU: 0.008                   # 黄金 0.8%
+    LC: 0.04                   # 碳酸锂 1.5%
+    default: 0.03               # 未知品种默认 3%
+
+# ========== 风控过滤器配置 ==========
+risk_filter:
+  max_daily_trades: 3            # 单日最大开仓次数
+  min_confidence: 4              # 最低置信度门槛（低于此值不下单）
+  max_consecutive_losses: 5      # 连续亏损次数上限（达到则当日暂停）
+  max_total_risk_percent: 0.06   # 总持仓风险敞口占权益比例上限（预留）
+
+# ========== 回测引擎配置 ==========
+backtest:
+  initial_equity: 1000000.0      # 初始资金
+  commission: 0.0001             # 手续费率（万分之一）
+  slippage: 1.0                  # 固定滑点（单位：最小变动价位）
