@@ -2,59 +2,59 @@
   "contract_info": {},
   "resonance_analysis": {
     "three_periods_aligned": "No",
-    "alignment_direction": "Neutral",
-    "description": "Price near mid-band, no touch",
+    "alignment_direction": "Short",
+    "description": "Price between mid & lower BB, bearish MACD dead cross",
     "contradiction": "",
-    "dominant_period_state": "MACD neutral/near zero"
+    "dominant_period_state": "Daily/hourly oversold, 15min bounce"
   },
   "scenario_analysis": [
     {
       "probability_rank": 1,
-      "scenario": "Breakout Continuation",
+      "scenario": "Bearish continuation after bounce",
       "probability_judgment": "High probability",
       "trigger_conditions": [
-        "Price holds above Daily Mid (2827)",
-        "Hourly price breaks above 2932 with volume",
-        "15min MACD stays positive"
+        "15min bounce fails near 165000 resistance",
+        "Hourly MACD remains dead cross below zero",
+        "Daily close below 156950 lower BB band"
       ]
     },
     {
       "probability_rank": 2,
-      "scenario": "Pullback to Support",
+      "scenario": "Short-term technical rebound",
       "probability_judgment": "Conditional",
       "trigger_conditions": [
-        "Rejection at Daily Upper Band (2981)",
-        "Price drops to test Hourly Lower Band (2878)",
-        "Volume decreases on pullback"
+        "15min MACD golden cross sustains",
+        "Price breaks 165000 with volume",
+        "Hourly DEA stops declining"
       ]
     },
     {
       "probability_rank": 3,
-      "scenario": "Trend Reversal",
+      "scenario": "Bullish reversal failure",
       "probability_judgment": "Low probability risk",
       "trigger_conditions": [
-        "Daily close below 2827",
-        "Weekly MACD turns negative again",
-        "Break of structural low 2685"
+        "Price breaks below 150860",
+        "Weekly MACD deepens negative",
+        "Volume surge on breakdown"
       ]
     }
   ],
   "key_levels": {
     "resistance": [
-      2933,
-      2981,
-      3050
+      163043.84,
+      169507,
+      180000
     ],
     "support": [
-      2827,
-      2879,
-      2906
+      149379.97,
+      155446,
+      159433.84
     ]
   },
-  "confidence_score": 8,
-  "confidence_reason": "Strong alignment between Weekly/Daily trends and short-term stabilization. Key levels are clearly defined by Bollinger Bands.",
-  "core_observation": "The asset is in a confirmed medium-term uptrend (Daily/Weekly) but currently pausing in a short-term consolidation (Hourly). The immediate setup favors a continuation upwards once the 2932 resistance is cleared.",
-  "summary": "Alumina (AO2609) shows strong bullish resonance. The Weekly chart confirms a recovery from lows, while the Daily chart maintains an active uptrend channel with expanding bands. Short-term charts (H1, M15) show a healthy consolidation near the middle Bollinger band, acting as a launchpad. Traders should look for long entries on breakouts above 2933 or dips to 2878-2905 support zones.",
+  "confidence_score": 7,
+  "confidence_reason": "Three of four periods align bearish with clear key levels. Weekly still in broader uptrend but correcting. 15min divergence adds uncertainty. Volume confirms selling pressure on higher timeframes.",
+  "core_observation": "Strong bearish resonance on daily and hourly timeframes with 15min showing early bounce signs. Weekly uptrend intact but undergoing deep correction. Price rejected from 205880 double top.",
+  "summary": "LC2609 is in a corrective phase within a longer-term uptrend. Daily and hourly show strong bearish alignment with MACD dead crosses below zero and declining Bollinger bands. The 15-minute chart displays a V-reversal bounce from 150860 with MACD golden cross, suggesting a short-term technical rebound. However, the dominant daily/hourly bearish momentum makes this bounce likely corrective rather than trend-reversing. Key resistance at 165000 and 169507; key support at 157180 and 150860. High probability scenario favors bearish continuation after the bounce exhausts.",
   "risk_warning": "The above is for technical analysis only. Futures trading involves high risk.",
   "vote_meta": {
     "valid_outputs": 3,
@@ -63,7 +63,7 @@
       "unknown",
       "unknown"
     ],
-    "scenario_vote": "Tie, used highest confidence",
+    "scenario_vote": "2/3",
     "levels_method": "Intersection+Median",
     "confidence_method": "Median"
   }

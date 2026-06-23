@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Backtest main program v1.0 (cv3 compatible)
-- Parses symbol from CSV filename
-- Compares with source_symbols in fusion report for vertical verification
-- Logs to file with symbol and timestamp
-- Saves reports with symbol and timestamp
+Backtest main program v1.0 (with 3-layer symbol fallback)
+- Layer 1: contract_info.symbol from fusion report
+- Layer 2: regex extraction from summary text
+- Layer 3: CSV filename fallback
 """
 
 import pandas as pd
 import json
 import sys
+import re
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -60,6 +60,11 @@ def infinite_gen(fusion):
     while True:
         yield fusion
 
+def extract_symbol_from_summary(summary: str) -> str:
+    """从 summary 文本中提取品种代码，如 LC2609、AO2609 等"""
+    match = re.search(r'\b([A-Z]{2}\d{4})\b', summary)
+    return match.group(1) if match else ""
+
 # ----- Main -----
 if __name__ == "__main__":
     logger.info(f"Loading data: {data_file_arg}")
@@ -73,19 +78,40 @@ if __name__ == "__main__":
     fusion = load_fusion(fusion_file)
     logger.info(f"Fusion confidence: {fusion.get('confidence_score')}")
 
+    # ===== 三层保底：确保 symbol 不为空 =====
+    if "contract_info" not in fusion:
+        fusion["contract_info"] = {}
+
+    symbol = fusion["contract_info"].get("symbol", "")
+
+    # 第一层：已有 symbol，直接使用
+    if symbol:
+        logger.info(f"Symbol from contract_info: {symbol}")
+
+    # 第二层：从 summary 中正则提取
+    if not symbol:
+        summary = fusion.get("summary", "")
+        symbol = extract_symbol_from_summary(summary)
+        if symbol:
+            fusion["contract_info"]["symbol"] = symbol
+            logger.info(f"Symbol extracted from summary: {symbol}")
+
+    # 第三层：从 CSV 文件名兜底
+    if not symbol:
+        symbol = backtest_symbol
+        fusion["contract_info"]["symbol"] = symbol
+        logger.info(f"Symbol from CSV filename: {symbol}")
+    # =========================================
+
     # ---- Vertical backtest check ----
     source_symbols = fusion.get("vote_meta", {}).get("source_symbols", [])
     logger.info(f"Source symbols from fusion: {source_symbols}")
 
     is_vertical = False
     backtest_type = "Unknown (Symbol Missing)"
-    analysis_symbol = "unknown"
+    analysis_symbol = symbol if symbol else "unknown"
 
     if source_symbols:
-        valid_symbols = [s for s in source_symbols if s and s != "unknown"]
-        if valid_symbols:
-            analysis_symbol = valid_symbols[0]
-
         if all(s == backtest_symbol for s in source_symbols):
             is_vertical = True
             backtest_type = "Vertical (Same Symbol)"

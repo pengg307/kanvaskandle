@@ -1,7 +1,7 @@
 # ========== 全局配置 ==========
 
 # 当前分析品种的最新价（供 fusion.py 校验价位使用）
-current_price: 2917
+current_price: 161740
 
 # ========== 头寸计算配置 ==========
 position_sizer:

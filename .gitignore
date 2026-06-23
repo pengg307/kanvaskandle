@@ -14,4 +14,6 @@ Thumbs.db
 data/
 output/
 responses/
+config.yaml
+rule_map.yaml
 
