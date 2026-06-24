@@ -1,69 +1,86 @@
 {
-  "contract_info": {},
+  "contract_info": {
+    "symbol": "AO2609",
+    "periods": [
+      "weekly",
+      "daily",
+      "hourly",
+      "15min"
+    ],
+    "bar_counts": {
+      "w": 50,
+      "d": 80,
+      "h": 120,
+      "m15": 200
+    },
+    "analysis_time": "2026-06-23T14:13:00+08:00",
+    "extraction_version": "data_v1.4_cv3"
+  },
   "resonance_analysis": {
-    "three_periods_aligned": "No",
-    "alignment_direction": "Short",
-    "description": "Price between mid & lower BB, bearish MACD dead cross",
-    "contradiction": "",
-    "dominant_period_state": "Daily/hourly oversold, 15min bounce"
+    "three_periods_aligned": "Yes",
+    "alignment_direction": "Bearish",
+    "description": "Weekly, Daily, and Hourly charts all display bearish structures and momentum. The 15-minute chart shows a temporary pause but aligns with the broader downtrend by failing to produce a strong reversal.",
+    "contradiction": "None significant. Short-term consolidation is expected within a larger downtrend.",
+    "dominant_period_state": "Daily trend breakdown confirms the Weekly bearish bias."
   },
   "scenario_analysis": [
     {
       "probability_rank": 1,
-      "scenario": "Bearish continuation after bounce",
-      "probability_judgment": "High probability",
+      "scenario": "Continuation of Downtrend",
+      "probability_judgment": "High Probability",
       "trigger_conditions": [
-        "15min bounce fails near 165000 resistance",
-        "Hourly MACD remains dead cross below zero",
-        "Daily close below 156950 lower BB band"
+        "Price breaks below 15min support at 2831",
+        "Hourly MACD resumes downward expansion",
+        "Volume increases on the breakdown"
       ]
     },
     {
       "probability_rank": 2,
-      "scenario": "Short-term technical rebound",
-      "probability_judgment": "Conditional",
+      "scenario": "Dead Cat Bounce / Retracement",
+      "probability_judgment": "Medium Probability",
       "trigger_conditions": [
-        "15min MACD golden cross sustains",
-        "Price breaks 165000 with volume",
-        "Hourly DEA stops declining"
+        "Price holds 2831 support",
+        "15min MACD forms a golden cross",
+        "Price retests 2860-2870 resistance zone"
       ]
     },
     {
       "probability_rank": 3,
-      "scenario": "Bullish reversal failure",
-      "probability_judgment": "Low probability risk",
+      "scenario": "Trend Reversal",
+      "probability_judgment": "Low Probability",
       "trigger_conditions": [
-        "Price breaks below 150860",
-        "Weekly MACD deepens negative",
-        "Volume surge on breakdown"
+        "Strong bullish engulfing candle on Daily chart",
+        "Price reclaims 2900 level",
+        "Weekly MACD histogram begins to shorten significantly"
       ]
     }
   ],
   "key_levels": {
     "resistance": [
-      163043.84,
-      169507,
-      180000
+      2880,
+      3000,
+      3331
     ],
     "support": [
-      149379.97,
-      155446,
-      159433.84
+      2600,
+      2750,
+      2831
     ]
   },
-  "confidence_score": 7,
-  "confidence_reason": "Three of four periods align bearish with clear key levels. Weekly still in broader uptrend but correcting. 15min divergence adds uncertainty. Volume confirms selling pressure on higher timeframes.",
-  "core_observation": "Strong bearish resonance on daily and hourly timeframes with 15min showing early bounce signs. Weekly uptrend intact but undergoing deep correction. Price rejected from 205880 double top.",
-  "summary": "LC2609 is in a corrective phase within a longer-term uptrend. Daily and hourly show strong bearish alignment with MACD dead crosses below zero and declining Bollinger bands. The 15-minute chart displays a V-reversal bounce from 150860 with MACD golden cross, suggesting a short-term technical rebound. However, the dominant daily/hourly bearish momentum makes this bounce likely corrective rather than trend-reversing. Key resistance at 165000 and 169507; key support at 157180 and 150860. High probability scenario favors bearish continuation after the bounce exhausts.",
+  "confidence_score": 7.0,
+  "confidence_reason": "Strong alignment across Weekly, Daily, and Hourly timeframes indicating a established bearish trend. The breakdown on the Daily chart adds significant weight to the bearish case.",
+  "core_observation": "The market has broken key structural supports on the Daily chart (neckline and moving averages). While the 15-minute chart shows momentary stabilization, the lack of buying volume suggests this is a pause before further downside rather than a reversal.",
+  "summary": "Bearish outlook dominates. Traders should look for short opportunities on rallies towards 2860-2870 or upon the break of 2831. Long positions are high risk until 2900 is reclaimed.",
   "risk_warning": "The above is for technical analysis only. Futures trading involves high risk.",
   "vote_meta": {
-    "valid_outputs": 3,
+    "valid_outputs": 4,
     "source_symbols": [
-      "unknown",
-      "unknown",
-      "unknown"
+      "AO2609",
+      "AO2609",
+      "AL2609",
+      "AG2609"
     ],
-    "scenario_vote": "2/3",
+    "scenario_vote": "Tie, used highest confidence",
     "levels_method": "Intersection+Median",
     "confidence_method": "Median"
   }
