@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Backtest main program v1.0 (with 3-layer symbol fallback)
-- Layer 1: contract_info.symbol from fusion report
-- Layer 2: regex extraction from summary text
-- Layer 3: CSV filename fallback
+Backtest main program v1.0 (compatible with v5.2 fusion output)
+- Parses symbol from CSV filename
+- Three-layer symbol fallback: contract_info -> summary -> CSV filename
+- Detailed error logging for file loading issues
 """
 
 import pandas as pd
@@ -44,24 +44,41 @@ logger.info(f"Backtest symbol from filename: {backtest_symbol}")
 
 # ----- Utility functions -----
 def load_csv(filepath):
-    df = pd.read_csv(filepath)
-    col_map = {"日期":"datetime","时间":"datetime","开盘":"open","最高":"high","最低":"low","收盘":"close","成交量":"volume"}
-    df = df.rename(columns=col_map)
-    keep = ["datetime","open","high","low","close","volume"]
-    df = df[[c for c in keep if c in df.columns]]
-    df["datetime"] = df["datetime"].astype(str)
-    return df
+    try:
+        df = pd.read_csv(filepath)
+        col_map = {"日期":"datetime","时间":"datetime","开盘":"open","最高":"high","最低":"low","收盘":"close","成交量":"volume"}
+        df = df.rename(columns=col_map)
+        keep = ["datetime","open","high","low","close","volume"]
+        missing_cols = [c for c in keep if c not in df.columns]
+        if missing_cols:
+            logger.error(f"CSV missing required columns: {missing_cols}")
+            return None
+        df = df[keep]
+        df["datetime"] = df["datetime"].astype(str)
+        return df
+    except FileNotFoundError:
+        logger.error(f"CSV file not found: {filepath}")
+        return None
+    except Exception as e:
+        logger.error(f"Failed to load CSV: {e}")
+        return None
 
 def load_fusion(path="output/fusion_result.json"):
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logger.error(f"Fusion report not found: {path}")
+        return None
+    except Exception as e:
+        logger.error(f"Failed to load fusion report: {e}")
+        return None
 
 def infinite_gen(fusion):
     while True:
         yield fusion
 
 def extract_symbol_from_summary(summary: str) -> str:
-    """从 summary 文本中提取品种代码，如 LC2609、AO2609 等"""
     match = re.search(r'\b([A-Z]{2}\d{4})\b', summary)
     return match.group(1) if match else ""
 
@@ -69,41 +86,32 @@ def extract_symbol_from_summary(summary: str) -> str:
 if __name__ == "__main__":
     logger.info(f"Loading data: {data_file_arg}")
     df = load_csv(data_file_arg)
+    if df is None:
+        sys.exit(1)
     logger.info(f"Rows: {len(df)}, Range: {df['datetime'].iloc[0]} ~ {df['datetime'].iloc[-1]}")
 
-    fusion_file = "output/fusion_result.json"
-    if not Path(fusion_file).exists():
-        logger.error(f"Fusion report {fusion_file} missing, run fusion.py first")
+    fusion = load_fusion()
+    if fusion is None:
         sys.exit(1)
-    fusion = load_fusion(fusion_file)
     logger.info(f"Fusion confidence: {fusion.get('confidence_score')}")
 
-    # ===== 三层保底：确保 symbol 不为空 =====
+    # Three-layer fallback for symbol
     if "contract_info" not in fusion:
         fusion["contract_info"] = {}
-
     symbol = fusion["contract_info"].get("symbol", "")
-
-    # 第一层：已有 symbol，直接使用
     if symbol:
         logger.info(f"Symbol from contract_info: {symbol}")
-
-    # 第二层：从 summary 中正则提取
-    if not symbol:
+    else:
         summary = fusion.get("summary", "")
         symbol = extract_symbol_from_summary(summary)
         if symbol:
             fusion["contract_info"]["symbol"] = symbol
             logger.info(f"Symbol extracted from summary: {symbol}")
+        else:
+            symbol = backtest_symbol
+            fusion["contract_info"]["symbol"] = symbol
+            logger.info(f"Symbol from CSV filename: {symbol}")
 
-    # 第三层：从 CSV 文件名兜底
-    if not symbol:
-        symbol = backtest_symbol
-        fusion["contract_info"]["symbol"] = symbol
-        logger.info(f"Symbol from CSV filename: {symbol}")
-    # =========================================
-
-    # ---- Vertical backtest check ----
     source_symbols = fusion.get("vote_meta", {}).get("source_symbols", [])
     logger.info(f"Source symbols from fusion: {source_symbols}")
 
@@ -116,11 +124,9 @@ if __name__ == "__main__":
             is_vertical = True
             backtest_type = "Vertical (Same Symbol)"
         elif any(s == backtest_symbol for s in source_symbols):
-            is_vertical = False
             backtest_type = "Partial Match (Mixed Symbols)"
             logger.warning(f"Source symbols {source_symbols} partially match backtest symbol {backtest_symbol}")
         else:
-            is_vertical = False
             backtest_type = "Cross-Symbol"
             logger.warning(f"Source symbols {source_symbols} do not match backtest symbol {backtest_symbol}")
     else:
@@ -129,7 +135,6 @@ if __name__ == "__main__":
     logger.info(f"Backtest Type: {backtest_type}")
     logger.info(f"Analysis symbol: {analysis_symbol}")
 
-    # Init modules
     signal_ext = SignalExtractor()
     risk_filt = RiskFilter("config.yaml")
     pos_sizer = PositionSizer("config.yaml")
@@ -144,10 +149,9 @@ if __name__ == "__main__":
         "is_vertical": is_vertical,
         "source_symbols": source_symbols,
         "data_file": data_file_arg,
-        "fusion_file": fusion_file
+        "fusion_file": "output/fusion_result.json"
     }
 
-    # Print report
     logger.info("===== Backtest Report =====")
     logger.info(f"Initial Equity: {report['initial_equity']:,.2f}")
     logger.info(f"Final Equity: {report['final_equity']:,.2f}")
@@ -167,7 +171,6 @@ if __name__ == "__main__":
         exit_price_str = f"{exit_price:.2f}" if exit_price is not None else 'N/A'
         logger.info(f"#{i} {t['direction']} | Entry:{t['entry_time']} @ {t['entry_price']:.2f} | Exit:{exit_time} @ {exit_price_str} | PnL:{t['pnl']:,.2f} | Reason:{t['exit_reason']}")
 
-    # Save reports
     ts = datetime.now().strftime('%Y%m%d_%H%M%S')
     summary_file = f"output/report_{backtest_symbol}_{ts}_summary.json"
     trades_file = f"output/report_{backtest_symbol}_{ts}_trades.json"
